@@ -27,7 +27,7 @@ type Msg struct {
 	MessageContent       string
 }
 
-func formatFootyMessage(rankings map[string]int) string {
+func formatFootyMessage(currentWinner string, rankings map[string]int) string {
 	// Extract keys into a slice
 	keys := make([]string, 0, len(rankings))
 	for key := range rankings {
@@ -38,7 +38,8 @@ func formatFootyMessage(rankings map[string]int) string {
 		return rankings[keys[i]] > rankings[keys[j]]
 	})
 
-	s := ""
+	s := fmt.Sprintf("Current lead: %s\n", currentWinner)
+	s += "Current rankings:\n"
 
 	for i, key := range keys {
 		s += fmt.Sprintf("%d. %s %d\n", i+1, key, rankings[key])
@@ -57,8 +58,8 @@ func msgHandler(discord *discordgo.Session, message *discordgo.MessageCreate) {
 	}
 
 	if strings.Contains(message.Content, "footy") {
-		rankings := footy.DoRankings()
-		discord.ChannelMessageSend(message.ChannelID, formatFootyMessage(rankings))
+		currentWinner, rankings := footy.DoRankings()
+		discord.ChannelMessageSend(message.ChannelID, formatFootyMessage(currentWinner, rankings))
 	}
 }
 

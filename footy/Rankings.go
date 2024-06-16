@@ -14,7 +14,7 @@ var (
 	Participents cfg.Config
 )
 
-func DoRankings() map[string]int {
+func DoRankings() (string, map[string]int) {
 	url := "https://api-football-v1.p.rapidapi.com/v3/standings?league=4&season=2024"
 	req, _ := http.NewRequest("GET", url, nil)
 
@@ -27,7 +27,7 @@ func DoRankings() map[string]int {
 
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
-		return nil
+		return "", nil
 	}
 
 	json.Unmarshal(body, &standings)
@@ -44,7 +44,7 @@ func DoRankings() map[string]int {
 		participentPoints[participent.Name] = pointsSum
 	}
 
-	return participentPoints
+	return GetLeader(standings), participentPoints
 }
 
 func GetTeamPoints(standingsResponse Standings) map[string]int {
@@ -57,4 +57,16 @@ func GetTeamPoints(standingsResponse Standings) map[string]int {
 	}
 
 	return totalScores
+}
+
+func GetLeader(standingsResponse Standings) string {
+	for _, standings := range standingsResponse.Response[0].League.Standings {
+		for _, standing := range standings {
+			if standing.Rank == 1 {
+				return standing.Team.Name
+			}
+		}
+	}
+
+	return ""
 }
