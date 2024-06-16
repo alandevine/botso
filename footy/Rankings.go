@@ -2,7 +2,6 @@ package footy
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -36,7 +35,6 @@ func DoRankings() (string, map[string]int) {
 	participentPoints := make(map[string]int)
 
 	for _, participent := range Participents.Participents {
-		fmt.Println(participent.Name)
 		pointsSum := 0
 		for _, team := range participent.Teams {
 			pointsSum += teamPoints[team]
