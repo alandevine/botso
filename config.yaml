@@ -1,0 +1,41 @@
+participents:
+  - name: Alan
+    teams:
+      - Italy
+      - Belgium
+      - Croatia
+  - name: Bernard
+    teams:
+      - Switzerland
+      - Netherlands
+      - Slovakia
+  - name: Conall
+    teams:
+      - Georgia
+      - France
+      - Czech Republic
+  - name: Conor
+    teams:
+      - Turkey
+      - Germany
+      - Portugal
+  - name: Luke
+    teams:
+      - Spain
+      - Poland
+      - Serbia
+  - name: Paddy
+    teams:
+      - Ukraine
+      - Austria
+      - Denmark
+  - name: Sean B
+    teams:
+      - England
+      - Scotland
+      - Albania
+  - name: Sean D
+    teams:
+      - Hungary
+      - Slovenia
+      - Romania
